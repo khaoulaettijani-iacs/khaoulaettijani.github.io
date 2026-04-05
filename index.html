@@ -1,432 +1,1647 @@
-<!-- Hero Section -->
-<section class="hero" id="home">
-    <div class="glow-line"></div>
-    <div class="glow-line"></div>
-    <div class="glow-line"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <div class="hero-content">
-        <div class="hero-tag">[ AI and Cybersecurity Engineering Student ]</div>
-        <h1 class="hero-title">KHAOULA ETTIJANI</h1>
-        <p class="hero-subtitle">Securing Systems. Detecting Threats. Protecting AI.</p>
-        <p class="hero-description">
-            4th-year Cybersecurity & AI Engineering student Focusing in SOC analysis, threat detection, web security, and AI system protection.
-            <strong style="color: var(--primary);">Seeking Summer 2026 Internship (PFA).</strong>
-        </p>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Khaoula Ettijani - AI and Cybersecurity | SOC Track | AI Security Specialist. 4th-year engineering student seeking Summer 2026 cybersecurity internship.">
+    <meta name="keywords" content="Cybersecurity, SOC Analyst, AI Security, Penetration Testing, CTF, Threat Detection, Morocco, Internship 2026">
+    <meta name="author" content="Khaoula Ettijani">
+    
+    <!-- Open Graph for social sharing -->
+    <meta property="og:title" content="Khaoula Ettijani - Cybersecurity & AI Engineering Student">
+    <meta property="og:description" content="Focusing in threat detection, web/network security, and AI system protection. Seeking PFA 2026 internship.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://khaoulaettijani-iacs.github.io/khaoulaettijani.github.io/">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Khaoula Ettijani - AI and Cybersecurity ">
+    <meta name="twitter:description" content="SOC Analyst Track | AI Security | CTF Competitor | Seeking Summer 2026 Internship (PFA)">
+    
+    <title>KHAOULA ETTIJANI // AI × Cybersecurity Student</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #0a0015;
+            --bg2: #0d0020;
+            --panel: #12002a;
+            --border: #2a0a4a;
+            --border2: #3d1560;
+            --primary: #00ffff;
+            --secondary: #ff00ff;
+            --accent: #8b00ff;
+            --dim: #4a1570;
+            --text: #d0b0ff;
+            --bright: #ffffff;
+            --muted: #2a0a40;
+            --glow: rgba(0, 255, 255, 0.4);
+            --glow2: rgba(255, 0, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* LOADING SCREEN */
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* CUSTOM CURSOR - DESKTOP ONLY */
+        @media (min-width: 769px) {
+            body {
+                cursor: none;
+            }
+
+            .cursor {
+                width: 12px;
+                height: 12px;
+                border: 2px solid var(--primary);
+                border-radius: 50%;
+                position: fixed;
+                pointer-events: none;
+                z-index: 9999;
+                transition: transform 0.15s ease;
+                box-shadow: 0 0 15px var(--primary);
+            }
+
+            .cursor-trail {
+                width: 6px;
+                height: 6px;
+                background: var(--secondary);
+                border-radius: 50%;
+                position: fixed;
+                pointer-events: none;
+                z-index: 9998;
+                opacity: 0.6;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+            
+            .cursor,
+            .cursor-trail {
+                display: none;
+            }
+        }
+
+        /* SCANLINES */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 255, 0.02) 2px,
+                rgba(0, 255, 255, 0.02) 4px
+            );
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* SCROLL INDICATOR */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            z-index: 9999;
+            transition: width 0.1s ease;
+        }
+
+        /* NAVIGATION */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 500;
+            padding: 0 40px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(10, 0, 21, 0.95);
+            border-bottom: 1px solid var(--border2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(10, 0, 21, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.1);
+        }
+
+        nav::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        .nav-logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 16px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--glow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--glow);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        /* MOBILE MENU */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 600;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--glow), transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-tag {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 14px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            color: var(--text);
+            margin-bottom: 30px;
+            font-weight: 400;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--dim);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            animation: fadeInUp 1s ease 0.8s both;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 1s both;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            color: var(--bg);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px var(--glow);
+            transform: translateY(-2px);
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        .btn-secondary {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn-secondary::before {
+            background: var(--secondary);
+        }
+
+        /* SCROLL DOWN INDICATOR */
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 50px;
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            padding-top: 8px;
+            animation: fadeIn 2s ease 1.5s both;
+        }
+
+        .scroll-down::before {
+            content: '';
+            width: 4px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 2px;
+            animation: scrollAnimation 2s infinite;
+        }
+
+        @keyframes scrollAnimation {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* SECTION STYLES */
+        section {
+            padding: 100px 40px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 48px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--bright);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+
+        /* ABOUT SECTION */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .about-text h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .stat-box {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px var(--glow);
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--dim);
+            letter-spacing: 1px;
+        }
+
+        /* EXPERIENCE SECTION */
+        .experience-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .experience-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 40px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .experience-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 30px var(--glow);
+            transform: translateY(-5px);
+        }
+
+        /* SKILLS SECTION */
+        .skills-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-category {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 30px var(--glow);
+            transform: translateY(-10px);
+        }
+
+        .skill-category h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-category h3::before {
+            content: '▸';
+            color: var(--secondary);
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-list li:hover {
+            padding-left: 10px;
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* PROJECTS SECTION */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 40px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 30px var(--glow);
+            transform: translateY(-10px);
+        }
+
+        .project-tag {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 12px;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .project-card h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 24px;
+            color: var(--bright);
+            margin-bottom: 15px;
+        }
+
+        .project-card p {
+            color: var(--text);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tech-tag {
+            padding: 6px 12px;
+            background: var(--muted);
+            border: 1px solid var(--border2);
+            font-size: 12px;
+            color: var(--primary);
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        /* CONTACT SECTION */
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-text {
+            font-size: 20px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            color: var(--text);
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            border: 1px solid var(--border2);
+            background: var(--panel);
+            color: var(--text);
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 0 20px var(--glow);
+            transform: translateY(-5px);
+        }
+
+        /* BACK TO TOP BUTTON */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--panel);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 400;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--primary);
+            color: var(--bg);
+            box-shadow: 0 0 20px var(--glow);
+            transform: translateY(-5px);
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            background: var(--bg2);
+        }
+
+        footer p {
+            color: var(--dim);
+            font-size: 14px;
+        }
+
+        /* GLOWING LINES */
+        .glow-line {
+            position: absolute;
+            width: 2px;
+            height: 200px;
+            background: linear-gradient(180deg, transparent, var(--primary), transparent);
+            opacity: 0.3;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .glow-line:nth-child(1) {
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .glow-line:nth-child(2) {
+            left: 50%;
+            animation-delay: 2s;
+        }
+
+        .glow-line:nth-child(3) {
+            left: 90%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-100vh);
+            }
+        }
+
+        /* ========================================
+           RESPONSIVE DESIGN - TABLET
+        ======================================== */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 56px;
+            }
+
+            .section-title {
+                font-size: 40px;
+            }
+
+            .about-grid {
+                gap: 40px;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
+        /* ========================================
+           RESPONSIVE DESIGN - MOBILE
+        ======================================== */
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 20px;
+            }
+
+            .nav-logo {
+                font-size: 14px;
+                letter-spacing: 2px;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: rgba(10, 0, 21, 0.98);
+                flex-direction: column;
+                padding: 20px;
+                border-top: 1px solid var(--border);
+                gap: 20px;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .nav-links a {
+                font-size: 18px;
+                padding: 10px 0;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero {
+                padding: 100px 20px 60px;
+                min-height: 90vh;
+            }
+
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .hero-subtitle {
+                font-size: 18px;
+            }
+
+            .hero-description {
+                font-size: 16px;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .scroll-down {
+                display: none;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .section-title {
+                font-size: 32px;
+                margin-bottom: 40px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-box {
+                padding: 25px;
+            }
+
+            .experience-card,
+            .skill-category,
+            .project-card {
+                padding: 25px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-link {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+
+            .glow-line {
+                display: none;
+            }
+        }
+
+        /* ========================================
+           SMALL MOBILE
+        ======================================== */
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 28px;
+            }
+
+            .hero-tag {
+                font-size: 11px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .about-text h3 {
+                font-size: 24px;
+            }
+
+            .about-text p {
+                font-size: 16px;
+            }
+
+            .stat-number {
+                font-size: 32px;
+            }
+
+            .project-card h3,
+            .skill-category h3 {
+                font-size: 20px;
+            }
+        }
+
+        /* ========================================
+           ACCESSIBILITY
+        ======================================== */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .scroll-down::before {
+                animation: none;
+            }
+        }
+
+        /* Focus styles for keyboard navigation */
+        a:focus,
+        button:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading">
+        <div class="loader"></div>
     </div>
-</section>
-<!-- About Section -->
-<section id="about">
-    <h2 class="section-title">WHO I AM</h2>
-    <div class="about-grid">
-        <div class="about-text">
-            <h3>AI and Cybersecurity Engineering Student</h3>
-            <p>
-                I'm not your typical AI student or cybersecurity student — I'm building 
-                expertise at the <strong style="color: var(--primary);">intersection of both</strong>.
-            </p>
-            <p>
-                My current focus: <strong>SOC Analyst skills</strong> — threat detection, 
-                security monitoring, incident response, and penetration testing. I compete 
-                in CTF competitions (🥉 3rd place in the first OnSite competition, MACC 2026 (182/1071)) to sharpen my offensive 
-                security mindset.
-            </p>
-            <p>
-                My unique edge? <strong>AI Security specialization</strong>. I understand how 
-                AI models work and as organizations adopt AI at scale, they'll need 
-                security professionals who can protect both traditional infrastructure 
-                <em>and</em> AI systems.
-            </p>
-            <p style="color: var(--primary); font-weight: 600; margin-top: 30px;">
-                🎯 Actively seeking Summer 2026 Cybersecurity Internship (PFA - 3 months)
-            </p>
+
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- Custom Cursor (Desktop Only) -->
+    <div class="cursor"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-logo">KHAOULA.CYBER.AI</div>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-        <div class="stats-grid">
-            <div class="stat-box">
-                <div class="stat-number">🥉 3rd</div>
-                <div class="stat-label">First-OnSite CTF - EST BM</div>
-            </div>
+        <div class="nav-links" id="navLinks">
+            <a href="#home" class="nav-link">HOME</a>
+            <a href="#about" class="nav-link">ABOUT</a>
+            <a href="#experience" class="nav-link">EXPERIENCE</a>
+            <a href="#skills" class="nav-link">SKILLS</a>
+            <a href="#projects" class="nav-link">PROJECTS</a>
+            <a href="#contact" class="nav-link">CONTACT</a>
         </div>
-    </div>
-</section>
-<!-- Experience Section -->
-<section id="experience" style="background: var(--bg2);">
-    <h2 class="section-title">EXPERIENCE</h2>
-    <div class="experience-container" style="max-width: 1200px; margin: 0 auto;">
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero visible" id="home">
+        <div class="glow-line"></div>
+        <div class="glow-line"></div>
+        <div class="glow-line"></div>
         
-        <!-- CTF Experience -->
-        <div class="experience-card" style="background: var(--panel); border: 1px solid var(--border); padding: 40px; margin-bottom: 30px; transition: all 0.3s ease;">
-            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
-                <div>
-                    <h3 style="font-family: 'Orbitron', monospace; font-size: 24px; color: var(--primary); margin-bottom: 10px;">
-                        🚩 CTF Competitor
-                    </h3>
-                    <p style="color: var(--dim); font-size: 16px;">
-                        Cybersecurity Competitions | Oct 2025 - Present
-                    </p>
-                </div>
-                <div style="padding: 8px 16px; background: var(--muted); border: 1px solid var(--primary); color: var(--primary); font-family: 'Share Tech Mono', monospace; font-size: 14px;">
-                    🥉 3RD PLACE - First OnSite CTF
-                </div>
-            </div>
-            <p style="color: var(--text); line-height: 1.8; margin-bottom: 20px;">
-                Actively competing in Capture The Flag competitions to build offensive security 
-                skills essential for defensive SOC work. Achieved <strong>182nd place with my team among 1071 teams in MACC 2026</strong> 
-            </p>
-            <div style="margin-top: 20px;">
-                <p style="color: var(--primary); font-weight: 600; margin-bottom: 10px;">Key Skills Developed:</p>
-                <ul style="color: var(--text); line-height: 2; margin-left: 20px;">
-                    <li>Web application exploitation (SQLi, XSS, IDOR)</li>
-                    <li>Network reconnaissance and traffic analysis</li>
-                    <li>Cryptography challenges and cipher analysis</li>
-                    <li>Offensive security mindset for defensive strategies</li>
-                </ul>
-            </div>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px;">
-                <span class="tech-tag">KALI LINUX</span>
-                <span class="tech-tag">BURP SUITE</span>
-                <span class="tech-tag">WIRESHARK</span>
-                <span class="tech-tag">NMAP</span>
-            </div>
-        </div>
-
-        <!-- AI Internship -->
-        <div class="experience-card" style="background: var(--panel); border: 1px solid var(--border); padding: 40px; margin-bottom: 30px; transition: all 0.3s ease;">
-            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
-                <div>
-                    <h3 style="font-family: 'Orbitron', monospace; font-size: 24px; color: var(--primary); margin-bottom: 10px;">
-                        🤖 AI Engineering Intern
-                    </h3>
-                    <p style="color: var(--dim); font-size: 16px;">
-                        Training Edge Consulting | Summer 2025
-                    </p>
-                </div>
-            </div>
-            <p style="color: var(--text); line-height: 1.8; margin-bottom: 20px;">
-                Completed hands-on internship focused on large language model fine-tuning and 
-                NLP engineering — gaining deep understanding of how AI systems work, which now 
-                informs my approach to <strong>AI security and threat detection</strong>.
-            </p>
-            <div style="margin-top: 20px;">
-                <p style="color: var(--primary); font-weight: 600; margin-bottom: 10px;">Key Achievements:</p>
-                <ul style="color: var(--text); line-height: 2; margin-left: 20px;">
-                    <li>Fine-tuned LLaMA-2 7B model for Moroccan Darija using PEFT & QLoRA</li>
-                    <li>Built data pipelines with web scraping (Scrapy, YouTube API)</li>
-                    <li>Developed Flask-based testing interface for model interaction</li>
-                    <li><strong>Security insight:</strong> Learned how LLMs can be manipulated (prompt injection, data poisoning)</li>
-                </ul>
-            </div>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px;">
-                <span class="tech-tag">PYTHON</span>
-                <span class="tech-tag">HUGGING FACE</span>
-                <span class="tech-tag">PEFT</span>
-                <span class="tech-tag">FLASK</span>
-            </div>
-        </div>
-
-        <!-- Leadership -->
-        <div class="experience-card" style="background: var(--panel); border: 1px solid var(--border); padding: 40px; transition: all 0.3s ease;">
-            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
-                <div>
-                    <h3 style="font-family: 'Orbitron', monospace; font-size: 24px; color: var(--primary); margin-bottom: 10px;">
-                        💻 Web Development Cell Lead
-                    </h3>
-                    <p style="color: var(--dim); font-size: 16px;">
-                        CSIA Club (Cybersecurity & AI Student Club) | Oct 2024 - Oct 2025
-                    </p>
-                </div>
-            </div>
-            <p style="color: var(--text); line-height: 1.8; margin-bottom: 20px;">
-                Led technical team for cybersecurity club.  Currently serving as 
-                active member contributing to projects and activities.
-            </p>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px;">
-                <span class="tech-tag">LEADERSHIP</span>
-                <span class="tech-tag">TEAM COORDINATION</span>
-                <span class="tech-tag">SECURE CODING</span>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<style>
-.experience-card:hover {
-    border-color: var(--primary) !important;
-    box-shadow: 0 0 30px var(--glow);
-    transform: translateY(-5px);
-}
-</style>
-<!-- Skills Section -->
-<section id="skills">
-    <h2 class="section-title">TECHNICAL Stack</h2>
-    <div class="skills-container">
-        <div class="skills-grid">
-            
-            <!--  Security Skills  -->
-            <div class="skill-category">
-                <h3>🔐 CYBERSECURITY & PENTESTING</h3>
-                <ul class="skill-list">
-                    <li>Penetration Testing (Web & Network)</li>
-                    <li>Ethical Hacking & CTF Competitions</li>
-                    <li>Kali Linux & Security Tools</li>
-                    <li>Threat Detection & SIEM Analysis</li>
-                    <li>Vulnerability Assessment (OWASP Top 10)</li>
-                    <li>Wireshark & Traffic Analysis</li>
-                    <li>Burp Suite & Web App Security</li>
-                    <li>Cryptography & Secure Communications</li>
-                    <li>Identity & Access Management (IAM)</li>
-                </ul>
-            </div>
-<!-- AI/ML  -->
-            <div class="skill-category">
-                <h3>🤖 AI & MACHINE LEARNING</h3>
-                <ul class="skill-list">
-                    <li>Deep Learning (CNN, ANN)</li>
-                    <li>Natural Language Processing (NLP)</li>
-                    <li>LLM Fine-Tuning (BERT, LLaMA-2), RAG </li>
-                    <li>PyTorch & Scikit-Learn </li>
-                    <li>Adversarial ML & Model Security</li>
-                    <li>Computer Vision</li>
-                    <li>AI System Vulnerabilities</li>
-                </ul>
-            </div>
-            <!-- Programming & Automation -->
-            <div class="skill-category">
-                <h3>💻 PROGRAMMING & AUTOMATION</h3>
-                <ul class="skill-list">
-                    <li>Python (Security Automation)</li>
-                    <li>Bash Scripting</li>
-                    <li>SQL & Databases (PostgreSQL) </li>
-                    <li>Git & Version Control</li>
-                    <li>Linux Administration & Hardening</li>
-                    <li>Docker, Kubernetes</li>
-                    <li>Incident Response Scripting</li>
-                    <li>Log Analysis Automation</li>
-                </ul>
-            </div>
-
-            
-
-        </div>
-        <div style="max-width: 900px; margin: 60px auto 0; padding: 40px; background: var(--panel); border: 2px solid var(--primary); text-align: center;">
-            <h3 style="font-family: 'Orbitron', monospace; color: var(--primary); margin-bottom: 20px; font-size: 24px;">
-                ⚡ MY COMPETITIVE ADVANTAGE
-            </h3>
-            <p style="color: var(--text); font-size: 18px; line-height: 1.8;">
-                Most cybersecurity professionals <strong>OR</strong> AI engineers pick one lane.
-                I'm building expertise in <strong style="color: var(--primary);">both</strong> — 
-                positioning myself for the future of security where AI systems need protection 
-                from emerging threats like adversarial attacks, model poisoning, and prompt injection.
+        <div class="hero-content">
+            <div class="hero-tag">[ AI and Cybersecurity Engineering Student ]</div>
+            <h1 class="hero-title">KHAOULA ETTIJANI</h1>
+            <p class="hero-subtitle">Securing Systems. Detecting Threats. Protecting AI.</p>
+            <p class="hero-description">
+                4th-year Cybersecurity & AI Engineering student
+                Focusing in threat detection, web/network security, SOC analysis and AI security.
+                <strong style="color: var(--primary);">Seeking Summer 2026 Internship (PFA).</strong>
             </p>
         </div>
-    </div>
-</section>
-<!-- Projects Section -->
-<section id="projects">
-    <h2 class="section-title">FEATURED PROJECTS</h2>
-    
-    <!-- Project Category  -->
-    <div style="text-align: center; margin-bottom: 50px;">
-        <p style="color: var(--dim); font-size: 16px;">
-            Showcasing hands-on work in <span style="color: var(--primary);">Security</span>, 
-            <span style="color: var(--secondary);">AI/ML</span>, and 
-            <span style="color: var(--accent);">AI Security convergence</span>
-        </p>
-    </div>
+        
+        <div class="scroll-down"></div>
+    </section>
 
-    <div class="projects-grid">
-        <!--  LLaMA Fine-tuning -->
-        <div class="project-card">
-            <div class="project-tag">[ 🤖 NLP + AI SECURITY ]</div>
-            <h3>LLaMA-2 Darija Fine-tuning</h3>
-            <p>
-                Fine-tuned LLaMA-2 7B model for Moroccan Darija dialect using parameter-efficient 
-                techniques (PEFT, QLoRA). Internship project that revealed LLM vulnerabilities.
-            </p>
-            <div style="background: var(--muted); padding: 15px; margin: 20px 0; border-left: 3px solid var(--accent);">
-                <p style="color: var(--text); font-size: 14px; line-height: 1.6;">
-                    <strong>Security insight:</strong> Learned how LLMs can be exploited through 
-                    prompt injection, data poisoning, and adversarial inputs — now applying to AI security.
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">WHO I AM</h2>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>
+                    I'm not a typical AI student or cybersecurity student — I'm building 
+                    expertise at the <strong style="color: var(--primary);">intersection of both</strong>.
+                </p>
+                <p>
+                    My current focus: <strong>SOC Analyst skills</strong> — threat detection, 
+                    security monitoring, incident response, and penetration testing. I compete 
+                    in CTF competitions (MACC 2026) to sharpen my offensive 
+                    security mindset.
+                </p>
+                <p>
+                    My unique edge? <strong>AI Security specialization</strong>. I understand how 
+                    AI models work and now I am focused on how they can be exploited.
+                </p>
+                <p style="color: var(--primary); font-weight: 600; margin-top: 30px;">
+                    🎯 Actively seeking Summer 2026 Cybersecurity Internship (PFA - 3 months)
                 </p>
             </div>
-            <div class="project-tech">
-                <span class="tech-tag">PYTHON</span>
-                <span class="tech-tag">HUGGING FACE</span>
-                <span class="tech-tag">PEFT</span>
-                <span class="tech-tag">QLORA</span>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">DOMAINS MASTERED</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">READY TO CONTRIBUTE</div>
+                </div>
             </div>
         </div>
+    </section>
 
-        <!-- Music CNN Classifier -->
-        <div class="project-card">
-            <div class="project-tag">[ 🎵 DEEP LEARNING ]</div>
-            <h3>Music Genre Classifier CNN</h3>
-            <p>
-                Convolutional neural network for automated music classification using advanced 
-                audio signal processing, MFCC extraction, and spectrogram analysis.
-            </p>
-            <div style="background: var(--muted); padding: 15px; margin: 20px 0; border-left: 3px solid var(--secondary);">
-                <p style="color: var(--text); font-size: 14px; line-height: 1.6;">
-                    <strong>Technical depth:</strong> Custom CNN architecture with dropout 
-                    regularization, data augmentation, and hyperparameter tuning.
+    <!-- Experience Section -->
+    <section id="experience" style="background: var(--bg2);">
+        <h2 class="section-title">EXPERIENCE</h2>
+        <div class="experience-container">
+            
+            <!-- CTF Experience -->
+            <div class="experience-card">
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                    <div>
+                        <h3 style="font-family: 'Orbitron', monospace; font-size: 24px; color: var(--primary); margin-bottom: 10px;">
+                            🚩 CTF Competitor
+                        </h3>
+                        <p style="color: var(--dim); font-size: 16px;">
+                            Cybersecurity Competitions | Oct 2025 - Present
+                        </p>
+                    </div>
+                    <div style="padding: 8px 16px; background: var(--muted); border: 1px solid var(--primary); color: var(--primary); font-family: 'Share Tech Mono', monospace; font-size: 14px;">
+                        🥉 3RD PLACE
+                    </div>
+                </div>
+                <p style="color: var(--text); line-height: 1.8; margin-bottom: 20px;">
+                    Actively competing in Capture The Flag competitions to build offensive security 
+                    skills essential for defensive SOC work. Achieved <strong>3rd place in my first OnSite CTF</strong> 
+                </p>
+                <div style="margin-top: 20px;">
+                    <p style="color: var(--primary); font-weight: 600; margin-bottom: 10px;">Key Skills Developed:</p>
+                    <ul style="color: var(--text); line-height: 2; margin-left: 20px;">
+                        <li>Web application exploitation (SQLi, XSS, IDOR)</li>
+                        <li>Network reconnaissance and traffic analysis</li>
+                        <li>Cryptography challenges and cipher analysis</li>
+                        <li>Offensive security mindset for defensive strategies</li>
+                    </ul>
+                </div>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px;">
+                    <span class="tech-tag">KALI LINUX</span>
+                    <span class="tech-tag">BURP SUITE</span>
+                    <span class="tech-tag">WIRESHARK</span>
+                    <span class="tech-tag">NMAP</span>
+                </div>
+            </div>
+
+            <!-- AI Internship -->
+            <div class="experience-card">
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                    <div>
+                        <h3 style="font-family: 'Orbitron', monospace; font-size: 24px; color: var(--primary); margin-bottom: 10px;">
+                            🤖 AI Engineering Intern
+                        </h3>
+                        <p style="color: var(--dim); font-size: 16px;">
+                            Training Edge Consulting | Summer 2025
+                        </p>
+                    </div>
+                </div>
+                <p style="color: var(--text); line-height: 1.8; margin-bottom: 20px;">
+                    Completed hands-on internship focused on large language model fine-tuning and 
+                    NLP engineering — gaining deep understanding of how AI systems work, which now 
+                    informs my approach to <strong>AI security and threat detection</strong>.
+                </p>
+                <div style="margin-top: 20px;">
+                    <p style="color: var(--primary); font-weight: 600; margin-bottom: 10px;">Key Achievements:</p>
+                    <ul style="color: var(--text); line-height: 2; margin-left: 20px;">
+                        <li>Fine-tuned LLaMA-2 7B model for Moroccan Darija using PEFT & QLoRA</li>
+                        <li>Built data pipelines with web scraping (Scrapy, YouTube API)</li>
+                        <li>Developed Flask-based testing interface for model interaction</li>
+                    </ul>
+                </div>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px;">
+                    <span class="tech-tag">PYTHON</span>
+                    <span class="tech-tag">HUGGING FACE</span>
+                    <span class="tech-tag">PEFT</span>
+                    <span class="tech-tag">FLASK</span>
+                </div>
+            </div>
+
+            <!-- Leadership -->
+            <div class="experience-card">
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                    <div>
+                        <h3 style="font-family: 'Orbitron', monospace; font-size: 24px; color: var(--primary); margin-bottom: 10px;">
+                            💻 Web Development Cell Lead
+                        </h3>
+                        <p style="color: var(--dim); font-size: 16px;">
+                            CSIA Club (Cybersecurity & AI Student Club) | Oct 2024 - Oct 2025
+                        </p>
+                    </div>
+                </div>
+                <p style="color: var(--text); line-height: 1.8; margin-bottom: 20px;">
+                    Led technical team for cybersecurity club. Currently serving as 
+                    active member contributing to security initiatives.
                 </p>
             </div>
-            <div class="project-tech">
-                <span class="tech-tag">PYTHON</span>
-                <span class="tech-tag">PYTORCH</span>
-                <span class="tech-tag">CNN</span>
-                <span class="tech-tag">LIBROSA</span>
-            </div>
-        </div>
 
-        <!-- BERT Q&A -->
-        <div class="project-card">
-            <div class="project-tag">[ 📚 NLP + TRANSFORMERS ]</div>
-            <h3>BERT Question Answering System</h3>
-            <p>
-                Fine-tuned BERT transformer for multiple-choice question answering. Optimized 
-                architecture for educational assessment with comprehensive evaluation metrics.
-            </p>
-            <div class="project-tech">
-                <span class="tech-tag">PYTHON</span>
-                <span class="tech-tag">BERT</span>
-                <span class="tech-tag">TRANSFORMERS</span>
-                <span class="tech-tag">PYTORCH</span>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2 class="section-title">TECHNICAL Stack</h2>
+        <div class="skills-container">
+            <div class="skills-grid">
+                
+                <!-- Security Skills -->
+                <div class="skill-category">
+                    <h3>🔐 CYBERSECURITY & PENTESTING</h3>
+                    <ul class="skill-list">
+                        <li>Penetration Testing (Web & Network)</li>
+                        <li>Ethical Hacking & CTF Competitions</li>
+                        <li>Kali Linux & Security Tools</li>
+                        <li>Threat Detection, GDPR</li>
+                        <li>Wireshark & Traffic Analysis</li>
+                        <li>Burp Suite & Web App Security</li>
+                        <li>Cryptography & Secure Communications (PKI)</li>
+                        <li>Identity & Access Management (IAM)</li>
+                    </ul>
+                </div>
+
+                <!-- Programming -->
+                <div class="skill-category">
+                    <h3>💻 PROGRAMMING & AUTOMATION</h3>
+                    <ul class="skill-list">
+                        <li>Python (Security Automation)</li>
+                        <li>Bash Scripting</li>
+                        <li>SQL & Database Security</li>
+                        <li>Git & Version Control, Docker, Kubernetes</li>
+                        <li>Linux Administration & Hardening</li>
+                        <li>Security Tool Development</li>
+                        <li>Incident Response Scripting</li>
+                        <li>Log Analysis Automation</li>
+                    </ul>
+                </div>
+
+                <!-- AI/ML -->
+                <div class="skill-category">
+                    <h3>🤖 AI & MACHINE LEARNING</h3>
+                    <ul class="skill-list">
+                         <li>Machine Learning</li>
+                        <li>Deep Learning (CNN, ANN)</li>
+                        <li>Natural Language Processing (NLP)</li>
+                        <li>LLM Fine-Tuning (BERT, LLaMA-2)</li>
+                        <li>PyTorch & TensorFlow</li>
+                        <li>Adversarial ML & Model Security</li>
+                        <li>Computer Vision</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Competitive Advantage -->
+            <div style="max-width: 900px; margin: 60px auto 0; padding: 40px; background: var(--panel); border: 2px solid var(--primary); text-align: center;">
+                <h3 style="font-family: 'Orbitron', monospace; color: var(--primary); margin-bottom: 20px; font-size: 24px;">
+                    ⚡ MY COMPETITIVE ADVANTAGE
+                </h3>
+                <p style="color: var(--text); font-size: 18px; line-height: 1.8;">
+                    Most cybersecurity professionals <strong>OR</strong> AI engineers pick one lane.
+                    I'm building expertise in <strong style="color: var(--primary);">both</strong> — 
+                    positioning myself for the future of security where AI systems need protection 
+                    from emerging threats like adversarial attacks, model poisoning, and prompt injection.
+                </p>
             </div>
         </div>
-    </div>
-<!-- Contact Section -->
-<section id="contact">
-    <h2 class="section-title">LET'S CONNECT</h2>
-    <div class="contact-container">
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2 class="section-title">FEATURED PROJECTS</h2>
         
-        <!-- Internship CTA (Prominent) -->
-        <div style="background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1)); 
-                    border: 2px solid var(--primary); 
-                    padding: 40px; 
-                    margin-bottom: 40px; 
-                    border-radius: 0;">
-            <h3 style="font-family: 'Orbitron', monospace; color: var(--primary); font-size: 28px; margin-bottom: 20px;">
-                🎯 SEEKING SUMMER 2026 INTERNSHIP
-            </h3>
-            <p style="color: var(--text); font-size: 18px; line-height: 1.8;">
-                <strong>Position:</strong> Cybersecurity Analyst / SOC Analyst / Security Engineering Intern<br>
-                <strong>Duration:</strong> 3 months (PFA)<br>
-                <strong>Available:</strong> Mid-June - Mid September 2026
+        <div style="text-align: center; margin-bottom: 50px;">
+            <p style="color: var(--dim); font-size: 16px;">
+                Showcasing hands-on work in <span style="color: var(--primary);">Security</span>, 
+                <span style="color: var(--secondary);">AI/ML</span>, and 
+                <span style="color: var(--accent);">AI Security convergence</span>
             </p>
         </div>
 
-        <p class="contact-text">
-            I'm actively looking for opportunities to apply my cybersecurity skills in real-world 
-            SOC environments. Whether you're hiring for summer internships, have a project collaboration 
-            in mind, or just want to discuss AI security — I'd love to hear from you!
-        </p>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-tag">[ 🤖 NLP + LLM ]</div>
+                <h3>LLaMA-2 Darija Fine-tuning</h3>
+                <p>
+                    Fine-tuned LLaMA-2 7B model for Moroccan Darija dialect using parameter-efficient 
+                    techniques (PEFT, QLoRA).
+                </p>
+                </div>
+                <div class="project-tech">
+                    <span class="tech-tag">PYTHON</span>
+                    <span class="tech-tag">HUGGING FACE</span>
+                    <span class="tech-tag">PEFT</span>
+                    <span class="tech-tag">QLORA</span>
+                </div>
+            </div>
 
-        <!-- What I Bring -->
-        <div style="background: var(--panel); 
-                    border: 1px solid var(--border); 
-                    padding: 30px; 
-                    margin: 40px 0; 
-                    text-align: left;">
-            <h4 style="color: var(--primary); margin-bottom: 20px; font-family: 'Orbitron', monospace;">
-                WHAT I BRING TO YOUR TEAM:
-            </h4>
-            <ul style="color: var(--text); line-height: 2; margin-left: 20px;">
-                <li>✅ <strong>Security Foundation:</strong> Penetration testing, CTF experience</li>
-                <li>✅ <strong>Technical Skills:</strong> Python, Kali Linux, Wireshark, Burp Suite</li>
-                <li>✅ <strong>AI Understanding:</strong> Machine Learning, Deep learning, NLP,RAG,  LLM fine-tuning (internship experience)</li>
-                <li>✅ <strong>AI Security Focus:</strong> Adversarial ML, model vulnerabilities, emerging threats</li>
-                <li>✅ <strong>Fast Learner:</strong> Dual curriculum (AI + Cybersecurity), active self-learning</li>
-            </ul>
+            <div class="project-card">
+                <div class="project-tag">[ 🎵 DEEP LEARNING ]</div>
+                <h3>Music Genre Classifier CNN</h3>
+                <p>
+                    Convolutional neural network for automated music classification using advanced 
+                    audio signal processing, MFCC extraction, and spectrogram analysis.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">PYTHON</span>
+                    <span class="tech-tag">PYTORCH</span>
+                    <span class="tech-tag">CNN</span>
+                    <span class="tech-tag">LIBROSA</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-tag">[ 📚 NLP + TRANSFORMERS ]</div>
+                <h3>BERT Question Answering System</h3>
+                <p>
+                    Fine-tuned BERT transformer for multiple-choice question answering. Optimized 
+                    architecture for educational assessment with comprehensive evaluation metrics.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">PYTHON</span>
+                    <span class="tech-tag">BERT</span>
+                    <span class="tech-tag">TRANSFORMERS</span>
+                    <span class="tech-tag">PYTORCH</span>
+                </div>
+            </div>
+
         </div>
+    </section>
 
-        <div class="contact-links">
-            <a href="https://www.linkedin.com/in/khaoula-ettijani-ai-cyber" class="contact-link" target="_blank">
-                <span>→</span> LINKEDIN
-            </a>
-            <a href="mailto:khaoulaettijani19@gmail.com" class="contact-link">
-                <span>→</span> EMAIL ME
-            </a>
-            <a href="https://github.com/khaoulaettijani-iacs" class="contact-link" target="_blank">
-                <span>→</span> GITHUB
-            </a>
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">LET'S CONNECT</h2>
+        <div class="contact-container">
+            
+            <!-- Internship CTA -->
+            <div style="background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1)); 
+                        border: 2px solid var(--primary); 
+                        padding: 40px; 
+                        margin-bottom: 40px;">
+                <h3 style="font-family: 'Orbitron', monospace; color: var(--primary); font-size: 28px; margin-bottom: 20px;">
+                    🎯 SEEKING SUMMER 2026 INTERNSHIP
+                </h3>
+                <p style="color: var(--text); font-size: 18px; line-height: 1.8;">
+                    <strong>Position:</strong> Cybersecurity Analyst / SOC Analyst / Security Engineering Intern<br>
+                    <strong>Duration:</strong> 3 months (PFA)<br>
+                    <strong>Location:</strong> Morocco or Remote<br>
+                    <strong>Available:</strong> June - August 2026
+                </p>
+            </div>
+
+            <p class="contact-text">
+                I'm actively looking for opportunities to apply my cybersecurity skills in real-world 
+                SOC environments. Whether you're hiring for summer internships, have a project collaboration 
+                in mind, or just want to discuss AI security — I'd love to hear from you!
+            </p>
+
+            <div class="contact-links">
+                <a href="https://www.linkedin.com/in/khaoula-ettijani-ai-cyber" class="contact-link" target="_blank">
+                    <span>→</span> LINKEDIN
+                </a>
+                <a href="mailto:khaoulaettijani19@gmail.com" class="contact-link">
+                    <span>→</span> EMAIL ME
+                </a>
+                <a href="https://github.com/khaoulaettijani-iacs" class="contact-link" target="_blank">
+                    <span>→</span> GITHUB
+                </a>
+            </div>
+
+            <p style="color: var(--dim); margin-top: 30px; font-size: 14px;">
+                📧 I typically respond within 24 hours
+            </p>
         </div>
+    </section>
 
-        <!-- Response Time -->
-        <p style="color: var(--dim); margin-top: 30px; font-size: 14px;">
-            📧 I typically respond within 24 hours
+    <!-- Footer -->
+    <footer>
+        <p style="margin-bottom: 10px;">
+            © 2026 KHAOULA ETTIJANI // AI and Cybersecurity
         </p>
+        <p style="font-size: 12px; color: var(--dim);">
+            Built with security and performance in mind • Optimized for recruiters
+        </p>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        ↑
     </div>
-</section>
-<!-- Footer -->
-<footer>
-    <p style="margin-bottom: 10px;">
-        © 2026 KHAOULA ETTIJANI // AI and Cybersecurity Engineering Student
-    </p>
-</footer>
-<!-- Add to <head> before </style> -->
-<style>
-/* Mobile Menu Toggle */
-.menu-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-}
 
-.menu-toggle span {
-    width: 25px;
-    height: 2px;
-    background: var(--primary);
-}
+    <script>
+        // ===================================
+        // LOADING SCREEN
+        // ===================================
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hidden');
+            }, 1000);
+        });
 
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: flex;
-    }
-    
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        right: 0;
-        background: var(--bg);
-        flex-direction: column;
-        padding: 20px;
-        border-top: 1px solid var(--border);
-    }
-    
-    .nav-links.active {
-        display: flex;
-    }
-}
-</style>
+        // ===================================
+        // CUSTOM CURSOR (Desktop Only)
+        // ===================================
+        if (window.innerWidth > 768) {
+            const cursor = document.querySelector('.cursor');
+            const trails = [];
 
-<!-- Update nav HTML -->
-<nav>
-    <div class="nav-logo">KHAOULA.CYBER.SEC</div>
-    <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-    <div class="nav-links">
-        <a href="#home">HOME</a>
-        <a href="#about">ABOUT</a>
-        <a href="#experience">EXPERIENCE</a>
-        <a href="#skills">SKILLS</a>
-        <a href="#projects">PROJECTS</a>
-        <a href="#contact">CONTACT</a>
-    </div>
-</nav>
-<!-- Add these to <head> section -->
-<meta name="description" content="Khaoula Ettijani - AI and Cybersecurity Engineering Student | SOC Track | AI Security Specialist. 4th-year seeking Summer 2026 cybersecurity internship.">
-<meta name="keywords" content="Cybersecurity, AI, SOC Analyst, AI Security, Penetration Testing, CTF, Threat Detection">
-<meta name="author" content="Khaoula Ettijani">
+            for (let i = 0; i < 5; i++) {
+                const trail = document.createElement('div');
+                trail.className = 'cursor-trail';
+                document.body.appendChild(trail);
+                trails.push({ element: trail, x: 0, y: 0 });
+            }
 
-<!-- Open Graph for social sharing -->
-<meta property="og:title" content="Khaoula Ettijani - Cybersecurity & AI  Engineer student">
-<meta property="og:description" content="Junior SOC Analyst specializing in threat detection, web security, and AI system protection. Seeking Summer 2026 internship.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://khaoulaettijani-iacs.github.io/khaoulaettijani.github.io/">
+            let mouseX = 0, mouseY = 0;
+            let cursorX = 0, cursorY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animateCursor() {
+                cursorX += (mouseX - cursorX) * 0.2;
+                cursorY += (mouseY - cursorY) * 0.2;
+                
+                if (cursor) {
+                    cursor.style.left = cursorX + 'px';
+                    cursor.style.top = cursorY + 'px';
+                }
+
+                trails.forEach((trail, index) => {
+                    trail.x += (mouseX - trail.x) * (0.1 - index * 0.015);
+                    trail.y += (mouseY - trail.y) * (0.1 - index * 0.015);
+                    trail.element.style.left = trail.x + 'px';
+                    trail.element.style.top = trail.y + 'px';
+                });
+
+                requestAnimationFrame(animateCursor);
+            }
+
+            animateCursor();
+
+            // Hover effects
+            const interactiveElements = document.querySelectorAll('a, button, .btn');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    if (cursor) {
+                        cursor.style.transform = 'scale(2)';
+                        cursor.style.borderColor = 'var(--secondary)';
+                    }
+                });
+                el.addEventListener('mouseleave', () => {
+                    if (cursor) {
+                        cursor.style.transform = 'scale(1)';
+                        cursor.style.borderColor = 'var(--primary)';
+                    }
+                });
+            });
+        }
+
+        // ===================================
+        // MOBILE MENU TOGGLE
+        // ===================================
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // ===================================
+        // SCROLL PROGRESS INDICATOR
+        // ===================================
+        window.addEventListener('scroll', () => {
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            const winScroll = document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            scrollIndicator.style.width = scrolled + '%';
+        });
+
+        // ===================================
+        // NAVBAR SCROLL EFFECT
+        // ===================================
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ===================================
+        // ACTIVE NAV LINK ON SCROLL
+        // ===================================
+        const sections = document.querySelectorAll('section');
+        const navLinksArray = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinksArray.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // ===================================
+        // INTERSECTION OBSERVER (Section Animations)
+        // ===================================
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            if (section.id !== 'home') { // Home is already visible
+                observer.observe(section);
+            }
+        });
+
+        // ===================================
+        // BACK TO TOP BUTTON
+        // ===================================
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // ===================================
+        // SMOOTH SCROLL FOR ALL ANCHORS
+        // ===================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ===================================
+        // PERFORMANCE: Lazy Load Images (if you add images later)
+        // ===================================
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.add('loaded');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+
+        // ===================================
+        // CONSOLE MESSAGE FOR RECRUITERS ;)
+        // ===================================
+        console.log(
+            '%c🛡️ KHAOULA ETTIJANI - Cybersecurity Analyst',
+            'color: #00ffff; font-size: 20px; font-weight: bold;'
+        );
+        console.log(
+            '%cIf you\'re checking the console, you\'re my kind of recruiter! 👀\n' +
+            'Let\'s connect: khaoulaettijani19@gmail.com',
+            'color: #ff00ff; font-size: 14px;'
+        );
+    </script>
+</body>
+</html>
